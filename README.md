@@ -300,7 +300,22 @@ watch: {
     },
 },
 ```
-Voilà, maintenant vous pouvez vous amusez à modifier les fichiers html, js, css et scss.
+# Activité : mise en situation
+Vous allez intégrer un formulaire de contact. Celui devra :
+* Comporter les champs : Nom, prénom, email, téléphone, sujet, message et le bouton envoyer
+* Être responsive
+* Être centré horizontalement à la page
+* Avoir une validation des champs. C'est à dire, qu'avant la soumission, vous devez vérifier que :
+    * Le champ email soit un email valide
+    * Le champ téléphone n'accepte que des chiffres uniquement
+    * Aucun champ ne peut être vide
+* Afficher un message d'erreur quand un champ n'est pas valide désignant le champ et ce que celui-ci attends comme données
+
+Vous pouvez utiliser toutes les librairies que vous voulez. Votre travail sera mis sur github sous le nom de *formulaire-contact*. Ce repo devra comme toujours, comporter un README.md.
+## Bonus
+Avoir une protection contre les spams.
+## Super bonus
+Récupérer les informations du formulaire et les envoyer dans votre boîte email. Il faudra faire un peu de PHP et peut-être modifier la configuration de votre *php.ini* :)
 # Aller plus loin
 Grunt possède plein de [plugins](http://gruntjs.com/plugins). Un qui pourrait être utile est [uglify](https://www.npmjs.com/package/grunt-contrib-uglify). Il permet de réduire la taille des fichiers javascript, ce qui permet à la page de se charge plus vite.
 

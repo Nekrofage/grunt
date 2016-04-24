@@ -1,32 +1,32 @@
 # Grunt
-Quand on créé des sites interne il nous arrive de faire souvent les mêmes tâches : 
+Quand on crée des sites interne, il nous arrive de faire souvent les mêmes tâches : 
 
-* *Minifier* la taille les fichiers javascript et css pour gagner en temps de chargement
+* *Minifier* la taille des fichiers javascript et css pour gagner en temps de chargement
 * Optimiser la taille des images
-* Tester son code javascript
+* Lancer les tests javascript
 * ...
 
-Afin de ne peux s'embêter à tous configurer tout le temps. Des petits malins ont créés les gestionnaires de tâches. 
+Afin de ne peux s'embêter à tout configurer à chaque fois. Des petits malins ont créé les gestionnaires de tâches tels que [grunt](http://gruntjs.com/). 
 
 Nous allons utiliser grunt en ligne de commande. **Toutes les lignes de commandes devront être lancées à partir du répertoire du projet.**
 
 # Installation
 
-Pour l'installer je vous invite à regarder la documentation officielle [ici](http://gruntjs.com/getting-started).
->Grunt a besoin de npm, le gestionnaire de paquet de node pour fonctionner
+Pour l'installer il suffit de regarder la documentation officielle [ici](http://gruntjs.com/getting-started).
+>Grunt a besoin de npm, le gestionnaire de paquet de node.js pour fonctionner
 
-## Activité : Créer un projet grunt
-On va créer notre premier projet grunt. Grunt a besoin de [2 fichiers](http://gruntjs.com/getting-started#preparing-a-new-grunt-project) pour fonctionner **package.json** et **Gruntfile.js**
-* **package.json** contient la liste des *plugins* utilisés dans notre projet. *npm* se base sur le contenu de ce fichier pour télécharger les dépendances.
+## Créer un projet grunt
+Grunt a besoin de [2 fichiers](http://gruntjs.com/getting-started#preparing-a-new-grunt-project) pour fonctionner **package.json** et **Gruntfile.js**
+* **package.json** contient la liste des *plugins* utilisés dans notre projet. *npm* se base sur ce fichier pour télécharger les fichiers des plugins (les dépendances).
 * **Gruntfile.js** est utilisé pour charger et paramétrer les *plugins*
 
 # Livereload
-## CSS
-Une fonctionnalité qui peut être pratique quand on fait de l'intégration front-end est le rafraichissage automatique de la page dans le navigateur web. 
 
-Plus la peine de rafraichir la page dans votre navigateur car dès que vous sauvegarder, ça se le fait automatiquement !
+Le rafraichissage automatique de la page dans le navigateur web est une fonctionnalité qui peut être très pratique quand on fait de l'intégration. 
 
-Pour l'utiliser, il faut installer le plugin *grunt-contrib-watch* mais pas seulement ! **Il faut aussi installer [l'extension](http://livereload.com/extensions/) livereload pour notre navigateur internet**. Pour ma part, je l'ai installé sur Chrome.
+En sauvegardant nos modifications la page de rafraîchit automatiquement !
+
+Pour l'utiliser, il faut d'abord installer le plugin *grunt-contrib-watch* mais pas seulement ! **Il faut aussi installer [l'extension](http://livereload.com/extensions/) livereload pour notre navigateur internet**. Pour ma part, je l'ai installé sur Chrome.
 
 Une fois l'extension installée, on va installer *grunt-contrib-watch*
 
@@ -41,24 +41,29 @@ Tout d'abord, on doit créer le fichier *package.json*
   }
 }
 ```
-Maintenant que j'ai mon fichier qui contient mes dépendances. Il faut aller les installer dans mon répertoire :
-```
+Comme dit précédemment, ce fichier contient les dépendances, nos plugins. Pour l'instant *grunt* et *grunt-contrib-watch*. 
+Nous allons récupérer les sources des plugins pour les rapatrier sur notre ordinateur :
+```console
 npm install
 ```
-Par cette commande, *npm* va aller lire le fichier *package.json* et télécharger les plugins qui correspondant à ceux présents dans *devDependencies**.
+Par cette commande, *npm* va aller lire le fichier *package.json* et télécharger les plugins correspondant à ceux présents dans *devDependencies**. Si on regarde dans notre dossier, on voit qu'il y a un nouveau dossier qui s'appelle *node_modules*. C'est là où *npm* a téléchargé les sources des plugins.
 
-Voilà *grunt* et *grunt-watch* sont installés. Maintenant il faut les configurer : 
-```
+Voilà *grunt* et *grunt-watch* sont installés. 
+
+## CSS
+
+Nous allons maintenant configurer grunt pour actualiser automatiquement la page de notre navigateur quand on modifie les fichiers css qui se trouvent dans le répertoire *css* : 
+```javascript
 module.exports = function(grunt) {
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         //Configuration for watch
         watch: {
-            //watch all changes on any css files 
+            //watch all changes on css files in the css directory and subdirectories
             //and reload the page when they changed
             css: {
-                files: '**/*.css',
+                files: 'css/**/*.css
                 options: {
                     livereload: true,
                 },
@@ -74,20 +79,20 @@ module.exports = function(grunt) {
 
 };
 ```
-Pour tester si ça marche on lance la commande *grunt* dans le terminal
-```
+Pour tester si ça marche on lance d'aboard la commande *grunt* dans le terminal :
+```console
 grunt
 ```
 Vous devriez avoir quelque chose comme ça :
-```
+```console
 Running "watch" task
 Waiting...
 ```
-Ensuite, on ouvre notre page *index.html* dans notre navigateur et on active la fonctionnalité *livereload*. 
+Ensuite, on ouvre notre page *index.html* dans notre navigateur et on active la fonctionnalité *livereload* . 
 
-Ajoutons un fond de couleur rouge à la page en créant le style dans le fichier *main.css* :
+Ajoutons un fond de couleur rouge à la page en créant un style dans notre fichier *main.css* :
 
-```html
+```css
 body{
     background-color: #FF0000;
 }
@@ -96,10 +101,10 @@ body{
 Si on regarde le navigateur il s'est actualisé automatiquement sans que l'on intervienne !
 
 ## HTML et JS
-Que se passe-t-il si on modifie notre fichier HTML ? Rien ne passe. C'est normal parce qu'on a pas dit à grunt de surveiller les modifications sur les fichiers .html.
+Que se passe-t-il si on modifie notre fichier HTML ? Rien ne passe. C'est normal parce qu'on a pas dit à grunt de surveiller les modifications sur les fichiers html.
 
-Nous allons y remédier. Pour ce faire, nous devons modifier la configuration dans le fichier *Gruntfile.js* plus précisément la partie avec *grunt.initConfig* :
-```
+Nous allons y remédier. Pour ce faire, nous devons modifier la configuration dans le fichier *Gruntfile.js* plus précisément la partie dans *grunt.initConfig* :
+```javascript
 grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         //Configuration for watch
@@ -107,7 +112,7 @@ grunt.initConfig({
             //watch all changes on any css files 
             //and reload the page when they changed
             css: {
-                files: '**/*.css',
+                files: 'css/**/*.css',
                 options: {
                     livereload: true,
                 },
@@ -125,8 +130,8 @@ grunt.initConfig({
 ```
 Pour tester si ça marche il faut arrêter *grunt* et puis le relancer.
 
-Et si on veut du livereload pour les fichiers javascripts il faut appliquer le même principe, modifier le *grunt.initConfig*
-```
+Et si on veut du livereload pour les fichiers javascripts qui se trouvent dans le répertoire *js*, il faut appliquer le même principe :
+```javascript
 grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         //Configuration for watch
@@ -134,7 +139,7 @@ grunt.initConfig({
             //watch all changes on any css files 
             //and reload the page when they changed
             css: {
-                files: '**/*.css',
+                files: 'css/**/*.css',
                 options: {
                     livereload: true,
                 },
@@ -150,7 +155,7 @@ grunt.initConfig({
             //watch all changes on any js files 
             //and reload the page when they changed
             js: {
-                files: '**/*.js',
+                files: 'js/**/*.js',
                 options: {
                     livereload: true,
                 },
@@ -158,11 +163,11 @@ grunt.initConfig({
         }
     });
 ```
-Et voilà maintenant les modifications des fichiers html, css, js entrainent l'actualisation de la page dans le navigateur !
+Et voilà maintenant les modifications des fichiers html, css, js entrainent l'actualisation automatique de la page !
 
 ### Optimisation
-Si on y regarde de plus près, on remarque qu'on peut optimiser un peu tout ça. Faire un *watch* sur une liste de type de fichier
-```
+Si on y regarde de plus près, on remarque qu'on peut optimiser un peu tout ça. Dans un premier temps, Faire un *watch* sur une liste de type de fichier
+```javascript
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -171,7 +176,7 @@ Si on y regarde de plus près, on remarque qu'on peut optimiser un peu tout ça.
             //watch all changes on any css files 
             //and reload the page when they changed
             front: {
-                files: ['**/*.css','**/*.html','**/*.js'],
+                files: ['css/**/*.css','**/*.html','js/**/*.js'],
                 options: {
                     livereload: true,
                 },
@@ -179,14 +184,14 @@ Si on y regarde de plus près, on remarque qu'on peut optimiser un peu tout ça.
         }
     });
 ```
-On a tout rassembler dans le tableau *files* dans l'objet *front*.
+On a tout rassembler dans le tableau *files* et dans l'objet *front*.
 
 Il se peut que le watch soit lent. Cela peut être dû au fait qu'il regarde trop de fichiers. 
 
-Ce que l'on peut faire c'est soit précisé exactement quelle répertoire regarder (le répertoire css, le répertoire js) ou exclure ce que l'ont pas surveillé comme le répertoire *node_modules* par exemple. 
+On va exclure les répertoires que l'on ne veut pas surveiller car on va jamais rien y modifier. Comme par exemple *node_modules*. 
 
-Pour ce faire on ajoute **'!**/node_modules/**'** à la liste de fichier. Le point d'exclamation au début, signifie exclure
-```
+Pour cela, on ajoute **'!**/node_modules/**'** à la liste de fichier. Le point d'exclamation au début, signifie exclure :
+```javascript
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -195,7 +200,7 @@ Pour ce faire on ajoute **'!**/node_modules/**'** à la liste de fichier. Le poi
             //watch all changes on any css files 
             //and reload the page when they changed
             front: {
-                files: ['**/*.css','**/*.html','**/*.js','!**/node_modules/**'],
+                files: ['css/**/*.css','**/*.html','js/**/*.js','!**/node_modules/**'],
                 options: {
                     livereload: true,
                 },
@@ -206,7 +211,7 @@ Pour ce faire on ajoute **'!**/node_modules/**'** à la liste de fichier. Le poi
 
 # Sass
 Si vous utilisez le préprocesseur CSS SASS vous devez être familiarisé avec cette ligne de commandes (plus ou moins)
-```
+```console
 sass --watch scss:css
 ```
 Une fois grunt configuré et lancé, vous n'avez plus besoin de taper cette ligne. 
@@ -214,16 +219,16 @@ Une fois grunt configuré et lancé, vous n'avez plus besoin de taper cette lign
 
 Mais avant ça nous devons installer le plugin :
 
-```
+```console
 npm install grunt-contrib-sass --save-dev
 ```
 
 >Il est important d'ajouter **--save-dev** à la fin de la commande. Si on ne le fais pas, la dépendance ne sera pas ajouté à notre fichier package.json. 
-Grunt fonctionnera quand même mais quand vous aller vouloir reprendre je fichier package.json pour pouvoir le réutiliser sur un autre projet, en installant les plugins à l'aide de la commande *npm install*, il n'y aura pas le plugin *grunt-contrib-jshint* !
+Grunt fonctionnera quand même mais quand vous allez vouloir reprendre je fichier package.json pour pouvoir le réutiliser sur un autre projet, en installant les plugins à l'aide de la commande *npm install*, il n'y aura pas le plugin *grunt-contrib-jshint* !
 
 Une fois le plugin installé, il faut dire à grunt de le charger et le configuré. Nous allons donc modifier le fichier *Gruntfile.js*
-```
-// Project configuration.
+```javascript
+    // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         //Configuration for watch
@@ -231,13 +236,13 @@ Une fois le plugin installé, il faut dire à grunt de le charger et le configur
             //watch all changes on any css files 
             //and reload the page when they changed
             front: {
-                files: ['**/*.css','**/*.html','**/*.js','!**/node_modules/**'],
+                files: ['css/**/*.css','**/*.html','js/**/*.js','!**/node_modules/**'],
                 options: {
                     livereload: true,
                 },
             },
-            sass: {
-                files: '**/*.scss',
+            scss: {
+                files: 'scss/**/*.scss',
                 tasks: ['sass']
             },
         },
@@ -259,8 +264,10 @@ Une fois le plugin installé, il faut dire à grunt de le charger et le configur
     // Default task(s).
     grunt.registerTask('default',['watch']);
 ```
+Que s'est-il passé ? On va décomposer un peu le code.
+
 Nous avons modifié plusieurs choses. Tout d'abord, nous avons ajouté une tâche *sass* qui prends tout le contenu des fichiers .scss qui se trouvent dans le répertoire *scss*, le transforme en css et le met dans le fichier *main.css* qui se trouve dans le répertoire *css* :
-```
+```javascript
 sass: {
     dev: {
         src: ['scss/*.scss'],
@@ -268,24 +275,29 @@ sass: {
     },
 },
 ```
-Mais pour pouvoir utiliser la tâche sass il faut charger le plugin : 
-```
+Mais pour pouvoir utiliser la tâche *sass* il faut charger le plugin : 
+```javascript
 grunt.loadNpmTasks('grunt-contrib-sass');
 ```
-Enfin, on ajoute un *watch* sur les fichiers .scss, pour quand il y'a un changement on appelle la tâche *sass* qui appellera le parser SASS afin de transformer le scss en css.
-```
+Enfin, on ajoute un *watch* sur les fichiers .scss, pour quand il y'a un changement, on appelle la tâche *scss* qui appellera le parser SASS afin de transformer le scss en css.
+```javascript
 watch: {
     //watch all changes on any css files 
     //and reload the page when they changed
     front: {
-        files: ['**/*.css','**/*.html','**/*.js','!**/node_modules/**'],
+        files: ['css/**/*.css','**/*.html','js/**/*.js','!**/node_modules/**'],
                 options: {
             livereload: true,
                 },
     },
-    sass: {
-        files: '**/*.scss',
+    scss: {
+        files: 'scss/**/*.scss',
         tasks: ['sass']
     },
 },
 ```
+Voilà, maintenant vous pouvez vous amusez à modifier les fichiers html, js, css et scss.
+# Aller plus loin
+Grunt possède plein de [plugins](http://gruntjs.com/plugins). Un qui pourrait être utile est uglify. Il permet de réduire la taille des fichiers javascript, ce qui permet à la page de se charge plus vite.
+
+Je vous invite à installer [uglify](https://www.npmjs.com/package/grunt-contrib-uglify) et à le configurer.

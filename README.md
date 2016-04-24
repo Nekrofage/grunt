@@ -63,7 +63,7 @@ module.exports = function(grunt) {
             //watch all changes on css files in the css directory and subdirectories
             //and reload the page when they changed
             css: {
-                files: 'css/**/*.css
+                files: 'css/**/*.css'
                 options: {
                     livereload: true,
                 },

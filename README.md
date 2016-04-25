@@ -54,6 +54,7 @@ Voilà *grunt* et *grunt-watch* sont installés.
 
 Nous allons maintenant configurer grunt pour actualiser automatiquement la page de notre navigateur quand on modifie les fichiers css qui se trouvent dans le répertoire *css* : 
 ```javascript
+/** Gruntfile.js */
 module.exports = function(grunt) {
     // Project configuration.
     grunt.initConfig({
@@ -63,7 +64,7 @@ module.exports = function(grunt) {
             //watch all changes on css files in the css directory and subdirectories
             //and reload the page when they changed
             css: {
-                files: 'css/**/*.css'
+                files: 'css/**/*.css',
                 options: {
                     livereload: true,
                 },

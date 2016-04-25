@@ -112,7 +112,7 @@ Que se passe-t-il si on modifie notre fichier HTML ? Rien. C'est normal parce qu
 
 Nous allons y remédier. Pour ce faire, nous devons modifier la configuration dans le fichier *Gruntfile.js* plus précisément la partie dans *grunt.initConfig* :
 ```javascript
-grunt.initConfig({
+        grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         //Configuration for watch
         watch: {
@@ -134,12 +134,14 @@ grunt.initConfig({
             }
         }
     });
+
 ```
 Pour tester si ça marche il faut arrêter *grunt* et puis le relancer.
 
 Et si on veut du livereload pour les fichiers javascripts qui se trouvent dans le répertoire *js*, il faut appliquer le même principe :
 ```javascript
-grunt.initConfig({
+
+        grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         //Configuration for watch
         watch: {
@@ -169,6 +171,7 @@ grunt.initConfig({
             }
         }
     });
+
 ```
 Et voilà maintenant les modifications des fichiers html, css, js entrainent l'actualisation automatique de la page !
 
@@ -199,6 +202,7 @@ On va exclure les répertoires que l'on ne veut pas surveiller car on va jamais 
 
 Pour cela, on ajoute *'!**/node_modules/**'* à la liste de fichier. Le point d'exclamation au début, signifie exclure :
 ```javascript
+
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -214,6 +218,7 @@ Pour cela, on ajoute *'!**/node_modules/**'* à la liste de fichier. Le point d'
             }
         }
     });
+
 ```
 
 # Sass
@@ -235,6 +240,7 @@ Grunt fonctionnera quand même mais quand vous allez vouloir reprendre je fichie
 
 Une fois le plugin installé, il faut le configurer et dire à grunt de le charger. Nous allons donc modifier le fichier *Gruntfile.js*
 ```javascript
+module.exports = function(grunt) {
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -273,6 +279,7 @@ Une fois le plugin installé, il faut le configurer et dire à grunt de le charg
 
     // Default task(s).
     grunt.registerTask('default',['watch']);
+}
 ```
 Que s'est-il passé ? On va décomposer un peu le code.
 

@@ -20,6 +20,8 @@ Grunt a besoin de [2 fichiers](http://gruntjs.com/getting-started#preparing-a-ne
 * **package.json** contient la liste des *plugins* utilisés dans notre projet. *npm* se base sur ce fichier pour télécharger les fichiers des plugins (les dépendances).
 * **Gruntfile.js** est utilisé pour charger et paramétrer les *plugins*
 
+**Attention : ces fichiers doivent se trouver à la racine du répertoire du projet**
+
 # Livereload
 
 Le rafraichissage automatique de la page dans le navigateur web est une fonctionnalité qui peut être très pratique quand on fait de l'intégration. 
@@ -27,6 +29,8 @@ Le rafraichissage automatique de la page dans le navigateur web est une fonction
 En sauvegardant nos modifications la page de rafraîchit automatiquement !
 
 Pour l'utiliser, il faut d'abord installer le plugin *grunt-contrib-watch* mais pas seulement ! **Il faut aussi installer [l'extension](http://livereload.com/extensions/) livereload pour notre navigateur internet**. Pour ma part, je l'ai installé sur Chrome.
+
+> Sous Chrome, pour que l'extension fonctionne il faut activer "Autoriser l'accès aux URL de fichiers" dans les options de l'extension.
 
 Une fois l'extension installée, on va installer *grunt-contrib-watch*.
 
@@ -52,7 +56,7 @@ Voilà *grunt* et *grunt-watch* sont installés.
 
 ## CSS
 
-Nous allons maintenant configurer grunt pour actualiser automatiquement la page de notre navigateur quand on modifie les fichiers css qui se trouvent dans le répertoire *css*. Nous allons créer le fichier **Gruntfile.js** : 
+Nous allons maintenant configurer grunt pour actualiser automatiquement la page de notre navigateur quand on modifie les fichiers css qui se trouvent dans le répertoire *css*. Nous allons créer le fichier *Gruntfile.js* : 
 ```javascript
 /** Gruntfile.js */
 module.exports = function(grunt) {

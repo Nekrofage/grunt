@@ -33,9 +33,9 @@ Une fois l'extension installée, on va installer *grunt-contrib-watch*.
 Tout d'abord, on doit créer le fichier *package.json*
 ```
 {
-  "name": "hello-grunt", //name of the project
-  "version": "0.1.0",    //version of the file
-  "devDependencies": {   //Dependencies of the project (plugins)
+  "name": "hello-grunt", 
+  "version": "0.1.0",    
+  "devDependencies": {   
     "grunt": "~0.4.5",
     "grunt-contrib-watch": "^1.0.0"
   }

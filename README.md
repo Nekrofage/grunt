@@ -31,6 +31,7 @@ En sauvegardant nos modifications la page de rafraîchit automatiquement !
 Pour l'utiliser, il faut d'abord installer le plugin *grunt-contrib-watch* mais pas seulement ! **Il faut aussi installer [l'extension](http://livereload.com/extensions/) livereload pour notre navigateur internet**. Pour ma part, je l'ai installé sur Chrome.
 
 > Sous Chrome, pour que l'extension fonctionne il faut activer "Autoriser l'accès aux URL de fichiers" dans les options de l'extension.
+Pour ce faire, il faut faire un clique droit sur l'icône de l'extension puis aller sur *Gérer les extensions* Puis cocher la case "Autoriser l'accès aux URL de fichiers" pour le module *LiveReload*.
 
 Une fois l'extension installée, on va installer *grunt-contrib-watch*.
 

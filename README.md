@@ -52,7 +52,7 @@ Voilà *grunt* et *grunt-watch* sont installés.
 
 ## CSS
 
-Nous allons maintenant configurer grunt pour actualiser automatiquement la page de notre navigateur quand on modifie les fichiers css qui se trouvent dans le répertoire *css* : 
+Nous allons maintenant configurer grunt pour actualiser automatiquement la page de notre navigateur quand on modifie les fichiers css qui se trouvent dans le répertoire *css*. Nous allons créer le fichier **Gruntfile.js** : 
 ```javascript
 /** Gruntfile.js */
 module.exports = function(grunt) {
